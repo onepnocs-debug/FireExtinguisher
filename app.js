@@ -49,9 +49,14 @@ async function saveData(photoData) {
         personnel:
             document.getElementById("personnel").value,
 
-        brand:
-            document.getElementById("brand").value,
+        extinguisherType:
+    document.getElementById("extinguisherType").value,
 
+capacity:
+    document.getElementById("capacity").value,
+
+expiryDate:
+    document.getElementById("expiryDate").value,
 
         serialNumber:
             document.getElementById("serialNumber").value,
@@ -75,7 +80,7 @@ async function saveData(photoData) {
     };
 
    await addDoc(
-    collection(db, "airconRecords"),
+    collection(db, "Fire Extinguisher"),
     record
 );
 
@@ -132,7 +137,14 @@ function editRecord(index) {
     const record = records[index];
 
     document.getElementById("personnel").value = record.personnel;
-    document.getElementById("brand").value = record.brand;
+  document.getElementById("extinguisherType").value =
+    record.extinguisherType || "";
+
+document.getElementById("capacity").value =
+    record.capacity || "";
+
+document.getElementById("expiryDate").value =
+    record.expiryDate || "";
     
     document.getElementById("serialNumber").value = record.serialNumber;
     document.getElementById("location").value = record.location;
@@ -158,7 +170,7 @@ async function loadRecords() {
     records = [];
 
     const snapshot = await getDocs(
-        collection(db, "airconRecords")
+        collection(db, "Fire Extinguisher")
     );
 
     snapshot.forEach((docSnap) => {
@@ -190,17 +202,17 @@ async function loadRecords() {
             table.innerHTML += `
                 <tr>
 
-                    <td>${record.inspectionDate || ""}</td>
-
-                    <td>${record.inspector || ""}</td>
+                   <td>${record.inspectionDate || ""}</td>
+<td>${record.expiryDate || ""}</td>
+<td>${record.inspector || ""}</td>
 
                     <td>
     <span class="${
-        record.status === "Good"
-            ? "status-good"
-            : record.status === "Needs Repair"
-            ? "status-repair"
-            : "status-maintenance"
+       record.status === "Serviceable"
+    ? "status-good"
+    : record.status === "Damaged"
+    ? "status-repair"
+    : "status-maintenance"
     }">
         ${record.status || ""}
     </span>
@@ -210,7 +222,11 @@ async function loadRecords() {
 
                     <td>${record.location || ""}</td>
 
-                    <td>${record.brand || ""}</td>
+                    <td>${record.extinguisherType|| ""}</td>
+                      <td>${record.capacity || ""}</td>
+                        <td>${record.expiryDate || ""}</td>
+
+
 
                     <td>${record.serialNumber || ""}</td>
 
@@ -275,7 +291,7 @@ async function deleteRecord(index) {
     if (confirm("Delete this record?")) {
 
         await deleteDoc(
-            doc(db, "airconRecords", records[index].id)
+            doc(db, "Fire Extinguisher", records[index].id)
         );
 
         loadRecords();
@@ -289,11 +305,21 @@ async function deleteRecord(index) {
 function exportCSV() {
 
     let csv =
-"Date,Inspector,Status,Personnel,Brand,Serial Number,Location,Remarks\n";
+let csv =
+"Inspection Date,Expiry Date,Inspector,Status,Person In Charge,Location,Type,Capacity,Serial Number,Remarks\n";
 
     records.forEach(r => {
 
-       csv += `"${r.inspectionDate}","${r.inspector}","${r.status}","${r.personnel}","${r.brand}","${r.serialNumber}","${r.location}","${r.remarks}"\n`;
+    csv += `"${r.inspectionDate}",
+"${r.expiryDate}",
+"${r.inspector}",
+"${r.status}",
+"${r.personnel}",
+"${r.location}",
+"${r.extinguisherType}",
+"${r.capacity}",
+"${r.serialNumber}",
+"${r.remarks}"\n`;
 
     });
 
@@ -304,7 +330,7 @@ function exportCSV() {
     const a = document.createElement("a");
 
     a.href = URL.createObjectURL(blob);
-    a.download = "Aircon_Maintenance_Records.csv";
+  a.download = "Fire_Extinguisher_Records.csv";
 
     document.body.appendChild(a);
     a.click();
@@ -322,41 +348,41 @@ function exportPDF() {
     const doc = new jsPDF();
 
     doc.text(
-        "Air Conditioner Maintenance Records",
+        "Fire Extinguisher Maintenance Records",
         14,
         15
     );
 
-   const rows = records.map(r => [
+  const rows = records.map(r => [
     r.inspectionDate,
+    r.expiryDate,
     r.inspector,
     r.status,
     r.personnel,
     r.location,
-    r.brand,
+    r.extinguisherType,
+    r.capacity,
     r.serialNumber,
     r.remarks
 ]);
     doc.autoTable({
-    head: [
-[
-    "Date",
+head: [[
+    "Inspection Date",
+    "Expiry Date",
     "Inspector",
     "Status",
     "Person In Charge",
     "Location",
-    "Brand",
+    "Type",
+    "Capacity",
     "Serial Number",
     "Remarks"
-]
-],
+]],
         body: rows,
         startY: 20
     });
 
-    doc.save(
-        "Aircon_Maintenance_Records.pdf"
-    );
+   doc.save("Fire_Extinguisher_Records.pdf");
 }
 
 // =========================
