@@ -7,7 +7,7 @@
 
 
 
-<title>Air Conditioner Maintenance Management System</title>
+<title>Fire Extinguisher Monitoring System</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -38,12 +38,12 @@
 <div class="card" style="margin-bottom:20px;">
 
     <h1>
-        ❄ Air Conditioner Maintenance Management System
+      🧯 Fire Extinguisher Monitoring System
     </h1>
 
     <p style="text-align:center;color:#64748b;">
-        Monitor Air Conditioning Units, Maintenance Records,
-        Inspections and Equipment Status
+       Monitor Fire Extinguishers, Inspections,
+Refilling Schedule and Equipment Status
     </p>
 
 </div>
@@ -89,42 +89,33 @@
 <!-- FORM -->
 <div class="form-container">
 
-    <input
-        id="personnel"
-        placeholder="Personnel In Charge">
+   <input id="personnel" placeholder="Person In Charge">
 
-    <input
-        id="brand"
-        placeholder="Brand">
+<input id="location" placeholder="Location">
 
-   
+<input id="extinguisherType" placeholder="Extinguisher Type">
 
-    <input
-        id="serialNumber"
-        placeholder="Serial Number">
+<input id="capacity" placeholder="Capacity">
 
-    <input
-        id="location"
-        placeholder="Location">
+<input id="serialNumber" placeholder="Serial Number">
 
-    <input
-        id="inspectionDate"
-        type="date">
+<input id="inspectionDate" type="date">
 
-    <input
-        id="inspector"
-        placeholder="Inspector">
+<input id="expiryDate" type="date">
+
+<input id="inspector" placeholder="Inspector">
 
     <input
         type="file"
         id="photo"
         accept="image/*">
 
-    <select id="status">
-        <option>Good</option>
-        <option>Needs Repair</option>
-        <option>Under Maintenance</option>
-    </select>
+  <select id="status">
+    <option>Serviceable</option>
+    <option>For Refill</option>
+    <option>Expired</option>
+    <option>Damaged</option>
+</select>
 
     <textarea
         id="remarks"
@@ -166,17 +157,19 @@
 
         <thead>
 
-           <tr>
+<tr>
     <th>Date</th>
     <th>Inspector</th>
     <th>Status</th>
     <th>Person In Charge</th>
     <th>Location</th>
-    <th>Brand</th>
+    <th>Type</th>
     <th>Serial Number</th>
     <th>Photo</th>
     <th>Remarks</th>
     <th>Actions</th>
+    <th>Capacity</th>
+    <th>Expiry Date</th>
 </tr>
 
         </thead>
