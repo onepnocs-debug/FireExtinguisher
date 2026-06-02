@@ -224,7 +224,7 @@ async function loadRecords() {
 
                     <td>${record.extinguisherType|| ""}</td>
                       <td>${record.capacity || ""}</td>
-                        <td>${record.expiryDate || ""}</td>
+                      
 
 
 
@@ -305,9 +305,7 @@ async function deleteRecord(index) {
 function exportCSV() {
 
     let csv =
-let csv =
-"Inspection Date,Expiry Date,Inspector,Status,Person In Charge,Location,Type,Capacity,Serial Number,Remarks\n";
-
+csv += `"${r.inspectionDate}","${r.expiryDate}","${r.inspector}","${r.status}","${r.personnel}","${r.location}","${r.extinguisherType}","${r.capacity}","${r.serialNumber}","${r.remarks}"\n`;
     records.forEach(r => {
 
     csv += `"${r.inspectionDate}",
