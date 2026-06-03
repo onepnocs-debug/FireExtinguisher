@@ -465,6 +465,17 @@ function adminLogin() {
 // =========================
 // PERMISSIONS
 // =========================
+function setupPermissions() {
+
+    console.log("Current User:", currentUser);
+
+    const saveBtn =
+        document.querySelector(
+            "button[onclick='saveRecord()']"
+        );
+
+    ...
+}
 
 function setupPermissions() {
 
