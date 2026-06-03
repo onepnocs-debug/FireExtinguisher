@@ -305,19 +305,11 @@ async function deleteRecord(index) {
 function exportCSV() {
 
     let csv =
-csv += `"${r.inspectionDate}","${r.expiryDate}","${r.inspector}","${r.status}","${r.personnel}","${r.location}","${r.extinguisherType}","${r.capacity}","${r.serialNumber}","${r.remarks}"\n`;
+"Inspection Date,Expiry Date,Inspector,Status,Person In Charge,Location,Type,Capacity,Serial Number,Remarks\n";
+
     records.forEach(r => {
 
-    csv += `"${r.inspectionDate}",
-"${r.expiryDate}",
-"${r.inspector}",
-"${r.status}",
-"${r.personnel}",
-"${r.location}",
-"${r.extinguisherType}",
-"${r.capacity}",
-"${r.serialNumber}",
-"${r.remarks}"\n`;
+        csv += `"${r.inspectionDate}","${r.expiryDate}","${r.inspector}","${r.status}","${r.personnel}","${r.location}","${r.extinguisherType}","${r.capacity}","${r.serialNumber}","${r.remarks}"\n`;
 
     });
 
@@ -328,7 +320,7 @@ csv += `"${r.inspectionDate}","${r.expiryDate}","${r.inspector}","${r.status}","
     const a = document.createElement("a");
 
     a.href = URL.createObjectURL(blob);
-  a.download = "Fire_Extinguisher_Records.csv";
+    a.download = "Fire_Extinguisher_Records.csv";
 
     document.body.appendChild(a);
     a.click();
